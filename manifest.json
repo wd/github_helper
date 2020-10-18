@@ -1,0 +1,20 @@
+{
+  "name": "Github helper",
+  "version": "1.0",
+  "author": "wd@wdicc.com",
+  "description": "Github helper",
+  "background": {
+    "scripts":["background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*.github.com/*"],
+      "run_at": "document_end",
+      "js": ["inject.js"]
+    }
+  ],
+  "permissions": [
+    "tabs"
+  ],
+  "manifest_version": 2
+}
