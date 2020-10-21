@@ -38,7 +38,7 @@
     }
 
     let getClubhouseLink = function(uid, text) {
-        let match = text.match(/^(.*?)(\[?ch([0-9]+)\]?)(.*?)$/i);
+        let match = text.match(/^(.*?)(\[?ch([0-9]+)\]?)(.*?)$/im);
         if(match) {
             let leftText = match[1];
             let rightText = match[4];
@@ -142,14 +142,17 @@
             let length = els.length;
             for(let j=0; j<length; j++) {
                 let el = els[j];
-                let node = el.firstChild;
-                if(node && node.nodeType == 3) {
-                    let ret = getClubhouseLink(uid, node.data);
-                    if(ret) {
-                        for(let i=0; i<ret.length; i++) {
-                            el.insertBefore(ret[i], node);
+                let nodes = el.childNodes;
+                for (var k=0; k<nodes.length; k++) {
+                    let node = nodes[k];
+                    if(node && node.nodeType == 3) {
+                        let ret = getClubhouseLink(uid, node.data);
+                        if(ret) {
+                            for(let i=0; i<ret.length; i++) {
+                                el.insertBefore(ret[i], node);
+                            }
+                            node.remove();
                         }
-                        node.remove();
                     }
                 }
             }
