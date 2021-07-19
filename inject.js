@@ -165,7 +165,8 @@
 
     let pullRequestDetailPageFilesList = function() {
         addCommentIcon();
-        addToggleButton();
+        addToggleButton("comments");
+        addToggleButton("annotations");
     }
 
     let addCommentIcon = function() {
@@ -186,7 +187,7 @@
                             return;
                         }
 
-                        let nextTr = commentsTr.nextElementSibling;
+                        let nextTr = commentsTr.previousElementSibling;
                         let els = nextTr.getElementsByClassName(appendIconClassName);
                         if(me.checked) {
                             // need to remove icon
@@ -226,21 +227,26 @@
     }
 
 
-    let addToggleButton = function() {
+    let addToggleButton = function(toggleType) {
         let diffbar = document.getElementsByClassName('diffbar');
-        let toggleButtonId = uniqIdPrefix + "comments-toggle-button";
+        let toggleButtonId = uniqIdPrefix + "-" + toggleType + "-toggle-button";
         if (!diffbar.length > 0 || document.getElementById(toggleButtonId)) {
             return
         }
 
+        keyClassNames = {
+            "comments": "js-toggle-file-notes",
+            "annotations": "js-toggle-file-check-annotations",
+        }
+
         let toolsDiv = diffbar[0].children[1];
         let toggleButton = document.createElement('a');
-        toggleButton.innerText = "Toggle comments(hide)";
+        toggleButton.innerText = toggleType + "(hide)";
         toggleButton.data = "show";
         toggleButton.style = "cursor: pointer";
         toggleButton.id = toggleButtonId;
         toggleButton.onclick = function() {
-            let checkboxs = document.getElementsByClassName('js-toggle-file-notes');
+            let checkboxs = document.getElementsByClassName(keyClassNames[toggleType]);
 
             for (let i=0; i<checkboxs.length; i++) {
                 let checkbox = checkboxs[i];
@@ -253,10 +259,10 @@
             }
             if (toggleButton.data == "show") {
                 toggleButton.data = "hide";
-                toggleButton.innerText = "Toggle comments(show)";
+                toggleButton.innerText = toggleType + "(show)";
             } else {
                 toggleButton.data = "show";
-                toggleButton.innerText = "Toggle comments(hide)";
+                toggleButton.innerText = toggleType + "(hide)";
             }
         }
         toggleButton.className = 'diffbar-item';
