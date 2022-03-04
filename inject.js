@@ -166,7 +166,7 @@
     let pullRequestDetailPageFilesList = function() {
         addCommentIcon();
         addToggleButton("comments");
-        addToggleButton("annotations");
+        addToggleButton("annotations", true);
     }
 
     let addCommentIcon = function() {
@@ -227,7 +227,7 @@
     }
 
 
-    let addToggleButton = function(toggleType) {
+    let addToggleButton = function(toggleType, toggle) {
         let diffbar = document.getElementsByClassName('diffbar');
         let toggleButtonId = uniqIdPrefix + "-" + toggleType + "-toggle-button";
         if (!diffbar.length > 0 || document.getElementById(toggleButtonId)) {
@@ -239,7 +239,7 @@
             "annotations": "js-toggle-file-check-annotations",
         }
 
-        let toolsDiv = diffbar[0].children[1];
+        let toolsDiv = diffbar[0].children[1].children[1];
         let toggleButton = document.createElement('a');
         toggleButton.innerText = toggleType + "(hide)";
         toggleButton.data = "show";
@@ -267,6 +267,9 @@
         }
         toggleButton.className = 'diffbar-item';
         toolsDiv.append(toggleButton);
+        if (toggle) {
+            toggleButton.click();
+        }
     }
 
     let runInject = function() {
