@@ -42,8 +42,9 @@
     }
 
     let getClubhouseLink = function(uid, text) {
-        let match = text.match(/^(.*?)(\[?ch([0-9]+)\]?)(.*?)$/im);
+        let match = text.match(/^(.*?)(\[?sc([0-9]+)\]?)(.*?)$/im);
         if(match) {
+            console.log(text);
             let leftText = match[1];
             let rightText = match[4];
 
@@ -119,7 +120,7 @@
     }
 
     let pullRequestDetailPage = function() {
-        addClubhouseLinkForComments();
+        // addClubhouseLinkForComments();
     }
 
     let matchClubhose = function(parent, callback) {
@@ -289,7 +290,7 @@
     chrome.runtime.onMessage.addListener(
         function(request, sender, sendResponse) {
             if (request.message === 'URL_CHANGE') {
-                runInject();
+                setTimeout(runInject(), 1000)
             }
         }
     )
