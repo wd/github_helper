@@ -42,9 +42,8 @@
     }
 
     let getClubhouseLink = function(uid, text) {
-        let match = text.match(/^(.*?)(\[?sc([0-9]+)\]?)(.*?)$/im);
+        let match = text.match(/^(.*?)(\[?sc-([0-9]+)\]?)(.*?)$/im);
         if(match) {
-            console.log(text);
             let leftText = match[1];
             let rightText = match[4];
 
@@ -66,7 +65,7 @@
     }
 
     let addClubhouseLinkForPullList = function() {
-        let listContainer = document.getElementsByClassName('repository-content')[0];
+        let listContainer = document.getElementsByTagName("turbo-frame")[0];
         let els = listContainer.getElementsByTagName('a');
         for (let i=0; i<els.length; i++) {
             let el = els[i];
@@ -99,7 +98,7 @@
             return
         }
 
-        let listContainer = document.getElementsByClassName('repository-content')[0];
+        let listContainer = document.getElementsByTagName("turbo-frame")[0];
         let els = listContainer.getElementsByTagName('a');
         for (let i=0; i<els.length; i++) {
             let el = els[i];
@@ -120,7 +119,7 @@
     }
 
     let pullRequestDetailPage = function() {
-        // addClubhouseLinkForComments();
+        addClubhouseLinkForComments();
     }
 
     let matchClubhose = function(parent, callback) {
